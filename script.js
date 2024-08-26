@@ -41,6 +41,7 @@ function operate(evaluate){
 let buttons = document.querySelectorAll(".button");
 let screen = document.querySelector(".screen");
 <<<<<<< HEAD
+<<<<<<< HEAD
 let  evaluate = [];
 
 
@@ -76,6 +77,9 @@ buttons.forEach(function(button, index){
 // operate(operand1, operand2, operator);
 
 
+=======
+
+>>>>>>> bb314acc6e228633cf94c1db348ecccc6ddbfb64
 let count = 0;
 
 buttons.forEach(function(button){
@@ -102,4 +106,7 @@ let operator = textField[1];
 
 operate(operand1, operand2, operator);
 
+<<<<<<< HEAD
+>>>>>>> bb314acc6e228633cf94c1db348ecccc6ddbfb64
+=======
 >>>>>>> bb314acc6e228633cf94c1db348ecccc6ddbfb64
