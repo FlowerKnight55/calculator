@@ -40,8 +40,7 @@ function operate(evaluate){
 
 let buttons = document.querySelectorAll(".button");
 let screen = document.querySelector(".screen");
-<<<<<<< HEAD
-<<<<<<< HEAD
+
 let  evaluate = [];
 
 
