@@ -40,6 +40,7 @@ function operate(evaluate){
 
 let buttons = document.querySelectorAll(".button");
 let screen = document.querySelector(".screen");
+<<<<<<< HEAD
 let  evaluate = [];
 
 
@@ -73,3 +74,32 @@ buttons.forEach(function(button, index){
 
 
 // operate(operand1, operand2, operator);
+=======
+
+let count = 0;
+
+buttons.forEach(function(button){
+    button.addEventListener("click", function(){
+
+        screen.textContent = screen.textContent + " " + button.textContent;
+        count++;
+        
+    });
+});
+
+
+
+
+
+
+//let textField = prompt("Enter text: ").split(" ");
+
+let operand1 = parseInt(textField[0]);
+let operand2 = parseInt(textField[2]);
+let operator = textField[1];
+
+
+
+operate(operand1, operand2, operator);
+
+>>>>>>> bb314acc6e228633cf94c1db348ecccc6ddbfb64
