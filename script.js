@@ -74,7 +74,7 @@ buttons.forEach(function(button, index){
 
 
 // operate(operand1, operand2, operator);
-=======
+
 
 let count = 0;
 
