@@ -38,67 +38,51 @@ function operate(evaluate){
 
 }
 
-let buttons = document.querySelectorAll(".button");
-let screen = document.querySelector(".screen");
+const calculator = document.querySelector(".calculator-container");
+const keys = calculator.querySelector(".btn-container");
 
-let  evaluate = [];
+const screen = document.querySelector(".screen");
 
-
-buttons.forEach(function(button, index){
-    button.addEventListener("click", function(event){
-
-  
-        
-
-        if(button.textContent === "+"){
-            event.preventDefault();
+keys.addEventListener("click", e =>{
+    if(e.target.matches('button')){
+        const key = e.target;
+        const action = key.dataset.action;
+        const keyContent = key.textContent;
+        const displayedNum = screen.textContent;
+    
+        if(!action){
+            if(displayedNum === "0"){
+                screen.textContent = keyContent;
+            }
+            else{
+                screen.textContent = displayedNum + keyContent;
+            }
         }
-        else{
-            screen.textContent = screen.textContent + button.textContent;
+
+        if(
+            action === "add" ||
+            action === "subtract" ||
+            action === "multiply" ||
+            action === "divide"
+        ){
+            
+            key.classList.add("is-depressed");
         }
-        
-    });
-});
+
+        if(action === "decimal"){
+            screen.textContent = displayedNum + ".";
+        }
+
+        if(action === "clear"){
+            screen.textContent = "";
+        }
+
+        if(action === "calculate"){
+            console.log("equal key!");
+        }
+    }
+})
 
 
 
 
-
-
-//let textField = prompt("Enter text: ").split(" ");
-
-// let operand1 = parseInt(textField[0]);
-// let operand2 = parseInt(textField[2]);
-// let operator = textField[1];
-
-
-
-// operate(operand1, operand2, operator);
-
-
-
-let count = 0;
-
-buttons.forEach(function(button){
-    button.addEventListener("click", function(){
-
-        screen.textContent = screen.textContent + " " + button.textContent;
-        count++;
-        
-    });
-});
-
-
-
-
-
-
-//let textField = prompt("Enter text: ").split(" ");
-
-let operand1 = parseInt(textField[0]);
-let operand2 = parseInt(textField[2]);
-let operator = textField[1];
-
-
-
-operate(operand1, operand2, operator);
