@@ -1,44 +1,63 @@
 
 
 function add(op1, op2){
-
-    console.log(op1 + op2);
-
+    return op1 + op2;
 }
 
 function subtract(op1, op2){
-    console.log(op1 - op2);
+    return op1 - op2;
 }
 
 function divide(op1, op2){
-    console.log(op1 / op2);
+    return op1 / op2;
 }
 
 
 function multiply(op1, op2){
-    console.log(op1 * op2);
+    return op1 * op2;
 }
 
-function operate(evaluate){
+function operate(operand1, operand2, operator){
 
-    switch(evaluate[1]){
-        case " + ":
-            add(evaluate[0], evaluate[2]);
+    switch(operator){
+        case "add":
+            return add(operand1, operand2);
             break;
-        case " - ":
-            subtract(evaluate[0], evaluate[2]);
+        case "subtract":
+            return subtract(operand1, operand2);
             break;
-        case " * ":
-            multiply(evaluate[0], evaluate[2]);
+        case "multiply":
+            return multiply(operand1, operand2);
             break;
-        case " / ":
-            divide(evaluate[0], evaluate[2]);
+        case "divide":
+            return divide(operand1, operand2);
             break;
     }
 
 }
 
-const calculator = document.querySelector(".calculator-container");
+
+function getOperator(action){
+    
+    switch(action){
+        case "add":
+            return " + ";
+            break;
+        case "subtract":
+            return " - ";
+            break;
+        case "multiply":
+            return " x ";
+            break;
+        case "divide":
+            return " ÷ ";
+            break;
+    }
+}
+
+
+
+const calculator = document.querySelector(".calculator");
 const keys = calculator.querySelector(".btn-container");
 
 const screen = document.querySelector(".screen");
@@ -49,10 +68,12 @@ keys.addEventListener("click", e =>{
         const action = key.dataset.action;
         const keyContent = key.textContent;
         const displayedNum = screen.textContent;
+        const previousKeyType = calculator.dataset.previousKeyType;
     
+        
         if(!action){
-            if(displayedNum === "0"){
-                screen.textContent = keyContent;
+            if(displayedNum === "0" || previousKeyType === "operator"){
+                screen.textContent = displayedNum + keyContent;
             }
             else{
                 screen.textContent = displayedNum + keyContent;
@@ -67,6 +88,12 @@ keys.addEventListener("click", e =>{
         ){
             
             key.classList.add("is-depressed");
+            calculator.dataset.previousKeyType = "operator";
+
+            screen.textContent = displayedNum + getOperator(action);
+
+            calculator.dataset.firstValue = displayedNum;
+            calculator.dataset.operator = action;
         }
 
         if(action === "decimal"){
@@ -78,8 +105,18 @@ keys.addEventListener("click", e =>{
         }
 
         if(action === "calculate"){
-            console.log("equal key!");
+            const firstValue = calculator.dataset.firstValue;
+            const operator = calculator.dataset.operator;
+            const secondValue = displayedNum.charAt(displayedNum.length - 1);
+            
+            console.log(firstValue + operator + secondValue);
+
+            screen.textContent = operate(parseFloat(firstValue), parseFloat(secondValue), operator);
         }
+
+        Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
+
+
     }
 })
 
