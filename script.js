@@ -20,10 +20,10 @@ function multiply(op1, op2){
 function operate(operand1, operand2, operator){
 
     switch(operator){
-        case "add":
+        case "+":
             return add(operand1, operand2);
             break;
-        case "subtract":
+        case "-":
             return subtract(operand1, operand2);
             break;
         case "multiply":
@@ -62,6 +62,8 @@ const keys = calculator.querySelector(".btn-container");
 
 const screen = document.querySelector(".screen");
 
+
+
 keys.addEventListener("click", e =>{
     if(e.target.matches('button')){
         const key = e.target;
@@ -69,8 +71,10 @@ keys.addEventListener("click", e =>{
         const keyContent = key.textContent;
         const displayedNum = screen.textContent;
         const previousKeyType = calculator.dataset.previousKeyType;
-    
+
+
         
+    
         if(!action){
             if(displayedNum === "0" || previousKeyType === "operator"){
                 screen.textContent = displayedNum + keyContent;
@@ -78,6 +82,9 @@ keys.addEventListener("click", e =>{
             else{
                 screen.textContent = displayedNum + keyContent;
             }
+
+            calculator.dataset.previousKeyType = "number";
+
         }
 
         if(
@@ -86,32 +93,76 @@ keys.addEventListener("click", e =>{
             action === "multiply" ||
             action === "divide"
         ){
+
+            console.log(displayedNum);
+
+            let parts = displayedNum.split(" ");
+
+            let firstValue = parseInt(parts[0]);
+            let operator = parts[1];
+            let secondValue = parseInt(parts[2]);
+
+
+
+            if(previousKeyType === undefined || previousKeyType === "operator"){
+                return e.preventDefault();
+            }
+
+
+
+            if(firstValue && operator && previousKeyType !== "operator"){
+
+                console.log(firstValue + operator + secondValue);
+                screen.textContent = operate(parseFloat(firstValue), parseFloat(secondValue), operator) + getOperator(action);
+                calculator.dataset.previousKeyType = "operator";
+            }
+            else{
+
+                key.classList.add("is-depressed");
+                screen.textContent = displayedNum + getOperator(action);
+    
+                calculator.dataset.firstValue = displayedNum;
+                calculator.dataset.operator = action;
+    
+                calculator.dataset.previousKeyType = "operator";
+            }
             
-            key.classList.add("is-depressed");
-            calculator.dataset.previousKeyType = "operator";
+            
 
-            screen.textContent = displayedNum + getOperator(action);
-
-            calculator.dataset.firstValue = displayedNum;
-            calculator.dataset.operator = action;
         }
 
-        if(action === "decimal"){
-            screen.textContent = displayedNum + ".";
+        if(action === "decimal" ){
+            
+            
+            if(previousKeyType === "operator"){
+                console.log(previousKeyType);
+                screen.textContent = "0."
+            }
+            else if(!displayedNum.endsWith(".")){
+                screen.textContent = displayedNum + ".";
+            }
+
+            
+            calculator.dataset.previousKeyType = "decimal";
         }
 
         if(action === "clear"){
             screen.textContent = "";
+            calculator.dataset.previousKeyType = "clear";
         }
 
         if(action === "calculate"){
-            const firstValue = calculator.dataset.firstValue;
-            const operator = calculator.dataset.operator;
-            const secondValue = displayedNum.charAt(displayedNum.length - 1);
+            let parts = displayedNum.split(" ");
+
+            let firstValue = parseInt(parts[0]);
+            let operator = parts[1];
+            let secondValue = parseInt(parts[2]);
             
             console.log(firstValue + operator + secondValue);
 
             screen.textContent = operate(parseFloat(firstValue), parseFloat(secondValue), operator);
+
+            calculator.dataset.previousKeyType = "calculate";
         }
 
         Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
