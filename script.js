@@ -84,8 +84,8 @@ keys.addEventListener("click", e =>{
 
     
         if(!action){
-            if(displayedNum === "0" || previousKeyType === "operator"){
-                screen.textContent = displayedNum + keyContent;
+            if(displayedNum === "0"){
+                screen.textContent = keyContent;
             }
             else{
                 screen.textContent = displayedNum + keyContent;
@@ -173,7 +173,7 @@ keys.addEventListener("click", e =>{
 
             let clearedNum = removeParenthesis(displayedNum);
 
-            console.log(clearedNum);
+            
 
             parts = clearedNum.split(" ");
 
@@ -184,7 +184,14 @@ keys.addEventListener("click", e =>{
 
             console.log(firstValue + operator + secondValue);
 
-            screen.textContent = operate(firstValue, secondValue, operator);
+            if(previousKeyType === "operator"){
+                screen.textContent = "0";
+            }
+            else if(firstValue){
+                screen.textContent = operate(firstValue, secondValue, operator);
+            }
+
+            
 
             calculator.dataset.previousKeyType = "calculate";
         }
