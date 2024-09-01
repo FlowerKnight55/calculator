@@ -57,7 +57,9 @@ function getOperator(action){
     }
 }
 
+function removeParenthesis(){
 
+}
 
 const calculator = document.querySelector(".calculator");
 const keys = calculator.querySelector(".btn-container");
@@ -189,6 +191,28 @@ keys.addEventListener("click", e =>{
            
         }
 
+        if(action === "negate"){
+
+            let parts = displayedNum.split(" ");
+
+            let firstValue = parts[0];
+            let operator = parts[1];
+            let secondValue = parts[2];
+
+            if(previousKeyType === "operator"){
+                screen.textContent = "0";
+            }
+            else if(firstValue && operator){
+                
+                screen.textContent = firstValue + " " + operator + " " + "(" + (-(secondValue)) + ")";
+
+            }
+            else{
+                screen.textContent = -(displayedNum);
+            }
+
+
+        }
 
         Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
 
