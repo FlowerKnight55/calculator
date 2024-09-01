@@ -19,6 +19,8 @@ function multiply(op1, op2){
 
 function operate(operand1, operand2, operator){
 
+    console.log(operand1)
+
     switch(operator){
         case "+":
             return add(operand1, operand2);
@@ -26,10 +28,10 @@ function operate(operand1, operand2, operator){
         case "-":
             return subtract(operand1, operand2);
             break;
-        case "multiply":
+        case "x":
             return multiply(operand1, operand2);
             break;
-        case "divide":
+        case "÷":
             return divide(operand1, operand2);
             break;
     }
@@ -72,8 +74,6 @@ keys.addEventListener("click", e =>{
         const displayedNum = screen.textContent;
         const previousKeyType = calculator.dataset.previousKeyType;
 
-
-        
     
         if(!action){
             if(displayedNum === "0" || previousKeyType === "operator"){
@@ -94,7 +94,6 @@ keys.addEventListener("click", e =>{
             action === "divide"
         ){
 
-            console.log(displayedNum);
 
             let parts = displayedNum.split(" ");
 
@@ -131,12 +130,11 @@ keys.addEventListener("click", e =>{
 
         }
 
-        if(action === "decimal" ){
+        if(action === "decimal"){
             
             
             if(previousKeyType === "operator"){
-                console.log(previousKeyType);
-                screen.textContent = "0."
+                screen.textContent = "0.";
             }
             else if(!displayedNum.endsWith(".")){
                 screen.textContent = displayedNum + ".";
@@ -154,16 +152,43 @@ keys.addEventListener("click", e =>{
         if(action === "calculate"){
             let parts = displayedNum.split(" ");
 
-            let firstValue = parseInt(parts[0]);
+            let firstValue = parseFloat(parts[0]);
             let operator = parts[1];
-            let secondValue = parseInt(parts[2]);
+            let secondValue = parseFloat(parts[2]);
             
+
+
+
             console.log(firstValue + operator + secondValue);
 
-            screen.textContent = operate(parseFloat(firstValue), parseFloat(secondValue), operator);
+            screen.textContent = operate(firstValue, secondValue, operator);
 
             calculator.dataset.previousKeyType = "calculate";
         }
+
+        if(action === "percent"){
+            
+            let parts = displayedNum.split(" ");
+
+            let firstValue = parts[0];
+            let operator = parts[1];
+            let secondValue = parts[2];
+
+            if(previousKeyType === "operator"){
+                screen.textContent = "0";
+            }
+            else if(firstValue && operator){
+                
+                screen.textContent = firstValue + " " + operator + " " + (secondValue / 100);
+
+            }
+            else{
+                screen.textContent = displayedNum / 100;
+            }
+
+           
+        }
+
 
         Array.from(key.parentNode.children).forEach(k => k.classList.remove('is-depressed'));
 
