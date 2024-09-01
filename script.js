@@ -67,6 +67,7 @@ function removeParenthesis(displayedNum){
     
 }
 
+
 const calculator = document.querySelector(".calculator");
 const keys = calculator.querySelector(".btn-container");
 
@@ -148,13 +149,27 @@ keys.addEventListener("click", e =>{
 
         if(action === "decimal"){
             
+            let parts = displayedNum.split(" ");
+
+
+            let firstValue = parts[0];
+            let secondValue = parts[2] === undefined ? "" : parts[2];
+
             
+            console.log(firstValue);
+            console.log(secondValue);
+
             if(previousKeyType === "operator"){
                 screen.textContent = "0.";
             }
-            else if(!displayedNum.endsWith(".")){
+            else if(previousKeyType !== "decimal" && !firstValue.includes(".")){
                 screen.textContent = displayedNum + ".";
             }
+            else if(previousKeyType !== "decimal" && secondValue !== "" && !secondValue.includes(".")){
+                console.log(!secondValue.includes("."));
+                screen.textContent = displayedNum + ".";
+            }
+
 
             
             calculator.dataset.previousKeyType = "decimal";
@@ -177,17 +192,15 @@ keys.addEventListener("click", e =>{
 
             parts = clearedNum.split(" ");
 
-            firstValue = parseInt(parts[0]);
+            firstValue = parseFloat(parts[0]);
             operator = parts[1];
-            secondValue = parseInt(parts[2]);
+            secondValue = parseFloat(parts[2]);
             
-
-            console.log(firstValue + operator + secondValue);
 
             if(previousKeyType === "operator"){
                 screen.textContent = "0";
             }
-            else if(firstValue){
+            else if(firstValue && secondValue && operator){
                 screen.textContent = operate(firstValue, secondValue, operator);
             }
 
