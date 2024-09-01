@@ -57,8 +57,14 @@ function getOperator(action){
     }
 }
 
-function removeParenthesis(){
+function removeParenthesis(displayedNum){
 
+    if(!displayedNum.includes("(")){
+        return displayedNum;
+    }
+
+    return displayedNum.replace(/[()]/g, '');;
+    
 }
 
 const calculator = document.querySelector(".calculator");
@@ -96,12 +102,20 @@ keys.addEventListener("click", e =>{
             action === "divide"
         ){
 
+            let parts;
+            let firstValue;
+            let operator;
+            let secondValue;
 
-            let parts = displayedNum.split(" ");
+            let clearedNum = removeParenthesis(displayedNum);
 
-            let firstValue = parseInt(parts[0]);
-            let operator = parts[1];
-            let secondValue = parseInt(parts[2]);
+            
+
+            parts = clearedNum.split(" ");
+
+            firstValue = parseInt(parts[0]);
+            operator = parts[1];
+            secondValue = parseInt(parts[2]);
 
 
 
@@ -152,14 +166,21 @@ keys.addEventListener("click", e =>{
         }
 
         if(action === "calculate"){
-            let parts = displayedNum.split(" ");
+            let parts;
+            let firstValue;
+            let operator;
+            let secondValue;
 
-            let firstValue = parseFloat(parts[0]);
-            let operator = parts[1];
-            let secondValue = parseFloat(parts[2]);
+            let clearedNum = removeParenthesis(displayedNum);
+
+            console.log(clearedNum);
+
+            parts = clearedNum.split(" ");
+
+            firstValue = parseInt(parts[0]);
+            operator = parts[1];
+            secondValue = parseInt(parts[2]);
             
-
-
 
             console.log(firstValue + operator + secondValue);
 
