@@ -19,8 +19,6 @@ function multiply(op1, op2){
 
 function operate(operand1, operand2, operator){
 
-    console.log(operand1)
-
     switch(operator){
         case "+":
             return add(operand1, operand2);
@@ -128,9 +126,9 @@ keys.addEventListener("click", e =>{
 
             if(firstValue && operator && previousKeyType !== "operator"){
 
-                console.log(firstValue + operator + secondValue);
                 screen.textContent = operate(parseFloat(firstValue), parseFloat(secondValue), operator) + getOperator(action);
                 calculator.dataset.previousKeyType = "operator";
+
             }
             else{
 
@@ -169,8 +167,6 @@ keys.addEventListener("click", e =>{
                 console.log(!secondValue.includes("."));
                 screen.textContent = displayedNum + ".";
             }
-
-
             
             calculator.dataset.previousKeyType = "decimal";
         }
@@ -187,9 +183,6 @@ keys.addEventListener("click", e =>{
             let secondValue;
 
             let clearedNum = removeParenthesis(displayedNum);
-
-            
-
             parts = clearedNum.split(" ");
 
             firstValue = parseFloat(parts[0]);
@@ -203,8 +196,6 @@ keys.addEventListener("click", e =>{
             else if(firstValue && secondValue && operator){
                 screen.textContent = operate(firstValue, secondValue, operator);
             }
-
-            
 
             calculator.dataset.previousKeyType = "calculate";
         }
