@@ -2,30 +2,70 @@
     box-sizing: border-box;
     margin: 0;
     padding: 0;
-    color: black;
-
+    color: white;
+    font-family: "Reem Kufi Ink", sans-serif;
+    text-align: center;
 }
 
+/* APPEARANCE */
+
+
+html, body{
+    background-color: #2D3250;
+}
+
+
+.calculator{
+    background: #201E43;
+}
+
+
+.button{
+    border: solid 1px #25283d;
+}
+
+.number{
+    background-color: #424769;
+}
+
+.operator, .equal{
+    background-color: #F6B17A;
+    
+}
+
+.special{
+    background-color: #7077A1; 
+}
+
+.screen{
+    background-color: #25283d;
+    /* background-color: #201E43; */
+}
+
+/* LAYOUT */
 html, body{
     height: 100%;
     width: 100%;
     display:flex;
     justify-content: center;
     align-items: center;
+    flex-direction: column;
+    
 }
 
-.calculator-container{
-    background: lightGrey;
-
+.header-section{
+    margin-bottom: 20px;
 }
+
 
 .screen{
     width: 100%;
-    background-color: darkGrey;
     height: 100px;
-    font-size: 48px;
+    font-size: 60px;
     display: flex;
     justify-content: flex-end;
+    align-items: flex-end;
+    padding-right: 10px;
 }
 
 .btn-container{
@@ -39,6 +79,7 @@ button{
     flex: 1 25%;
     padding: 30px;
     font-size: 20px;
+    
     
 } 
 
